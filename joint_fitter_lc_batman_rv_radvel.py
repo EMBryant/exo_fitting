@@ -24,15 +24,30 @@ def load_rv_data(file_name, file_format='txt', unit='m/s'):
         print('Sorry.')
         sys.exit(1)
     
-    t = dat[:, 0]
+    t  = dat[:, 0]
     rv = dat[:, 1]
-    erv = dat[:, 2]
+    erv= dat[:, 2]
     if unit == 'km/s':
         rv *= 1000.
         erv *= 1000.
     
     return t, rv, erv
+
+def load_photometry(file_name, file_format='txt', unit='m/s'):
+    if file_format=='txt':
+        dat = np.loadtxt(file_name)
+    elif file_format=='csv':
+        dat = np.loadtxt(file_name, delimiter=',')
+    else:
+        print('I can only handle txt or csv files atm')
+        print('Sorry.')
+        sys.exit(1)
     
+    t = dat[:, 0]
+    f = dat[:, 1]
+    ef= dat[:, 2]
+    
+    return t, f, ef
 
 def initialise_batman_lc_model(x, tc, per, rprs, ars, inc, 
                                ecc=0., omega=90., q1=0.25, q2=0.35,
